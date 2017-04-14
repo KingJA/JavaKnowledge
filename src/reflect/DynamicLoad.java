@@ -14,7 +14,7 @@ public class DynamicLoad {
          * 从类对象创建对象属于动态加载，就是在用的时候才加载
          */
         try {
-            Class c = Class.forName("reflect.Person");
+            Class c = Class.forName("reflect.Robot");
             Think o = (Think) c.newInstance();
             o.think();
         } catch (Exception e) {

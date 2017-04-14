@@ -16,7 +16,7 @@ public class ClassObject {
         Class c1=person.getClass();
         Class c2=Person.class;
         try {
-            Class c3=Class.forName("reflect.Person");
+            Class c3=Class.forName("reflect.Robot");
             System.out.println(c1==c2&&c2==c3);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
