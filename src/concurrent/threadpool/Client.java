@@ -18,22 +18,24 @@ public class Client {
     private static ExecutorService singleThreadExecutor;
     private static ExecutorService fixedThreadPool;
     private static ScheduledExecutorService scheduledThreadPool;
+    private static ScheduledExecutorService singleScheduledThreadPool;
 
     public static void main(String[] args) {
         cachedThreadPool = Executors.newCachedThreadPool();
         singleThreadExecutor = Executors.newSingleThreadExecutor();
         fixedThreadPool = Executors.newFixedThreadPool(5);
         scheduledThreadPool = Executors.newScheduledThreadPool(5);
-
+        singleScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
         doScheduledThreadPool();
 
     }
 
     private static void doScheduledThreadPool() {
-        //延迟执行
+        //延迟执行(每隔3000毫秒执行1次)
 //        scheduledThreadPool.schedule(new Task(), 3000, TimeUnit.MILLISECONDS);
-        //延迟多久后每隔多久执行一次
-        scheduledThreadPool.scheduleWithFixedDelay(new Task(),10000,2000,TimeUnit.MILLISECONDS);
+        //延迟,定时执行(1000毫秒后每隔2000毫秒执行1次)
+//        scheduledThreadPool.scheduleWithFixedDelay(new Task(),1000,2000,TimeUnit.MILLISECONDS);
+        singleScheduledThreadPool.scheduleWithFixedDelay(new Task(),1000,2000,TimeUnit.MILLISECONDS);
     }
 
     private static void doFixedThreadPool() {
