@@ -1,7 +1,7 @@
 package concurrent.producer_customer;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Description：TODO
@@ -12,15 +12,8 @@ import java.util.concurrent.Executors;
 public class Client {
 
     public static void main(String[] args) {
-        Queue queue = new Queue();
-        Thread producerThread = new Thread(new Producer("张三", queue));
-        producerThread.start();
-
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        for (int i = 0; i <1; i++) {
-            executorService.execute(new Custom(queue));
-        }
-
-
+        BlockingDeque<Product> queue = new LinkedBlockingDeque<>();
+        new Producer(queue).start();
+        new Consumer(queue).start();
     }
 }
