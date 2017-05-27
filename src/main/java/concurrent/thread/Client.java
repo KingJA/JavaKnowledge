@@ -11,20 +11,35 @@ import java.util.concurrent.TimeUnit;
 public class Client {
     public static void main(String[] args) {
         System.out.println("CPU个数："+Runtime.getRuntime().availableProcessors());
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                while (!this.isInterrupted()) {
-                    System.out.println("Thread Running");
-                }
-            }
-        };
+        WorkThread thread = new WorkThread();
         thread.start();
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        thread.interrupt();
+        thread.quit();
+    }
+    static class WorkThread extends Thread{
+        private boolean mQuit;
+        @Override
+        public void run() {
+            while (true) {
+                System.out.println("running");
+                try {
+                    TimeUnit.MILLISECONDS.sleep(200);
+                } catch (InterruptedException e) {
+                    System.out.println("stop");
+                    if (mQuit) {
+                        System.out.println("quit");
+                        return;
+                    }
+                }
+            }
+        }
+        public void quit() {
+            mQuit = true;
+            interrupt();
+        }
     }
 }

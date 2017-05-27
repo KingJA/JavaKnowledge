@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Client {
     public static void main(String[] args) {
-        CustomThreadPool customThreadPool = new CustomThreadPool(2, 3, 30000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(100), new CustomThreadFactory(), new ThreadPoolExecutor.DiscardOldestPolicy());
+        CustomThreadPool customThreadPool = new CustomThreadPool(2, 3, 30000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(100), new CustomThreadFactory(), new ThreadPoolExecutor.DiscardOldestPolicy());
         for (int i = 0; i < 100; i++) {
             customThreadPool.execute(new Task(i));
         }
